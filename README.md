@@ -31,7 +31,7 @@ All actions should be executed from the source directory of the project and only
    celery -A store worker --loglevel=INFO
    ```
 
-*The application has the following functions:️*
+## Functional:️*
 - SSO authorization (GitHub).
 - Personal cabinet. 
 - Shopping cart. With connected payment system Stripe. History of orders.
