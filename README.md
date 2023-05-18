@@ -1,3 +1,5 @@
+Project on django
+
 ## Local Developing
 
 All actions should be executed from the source directory of the project and only after installing all requirements.
@@ -35,6 +37,6 @@ All actions should be executed from the source directory of the project and only
 - SSO authorization (GitHub).
 - Personal cabinet. 
 - Shopping cart. With connected payment system Stripe. History of orders.
-- Caching в Redis.
+- Caching in Redis.
 - Pending tasks in Celery (sending email upon registration).
-- DB PostgreSQL.
+- PostgreSQL.
