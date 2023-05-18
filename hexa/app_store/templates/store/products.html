@@ -1,0 +1,81 @@
+{% extends 'base/base.html' %}
+{% load static cache %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+
+{% block main %}
+
+    <section class="section" id="products">
+
+    <div class="container">
+        <div class="row mc-products_categories-row">
+            <ul class="mc-products-list-group">
+                {% for category in categories %}
+                    <li class="mc-products-list-group-item">
+                        <a href="{% url 'app_store:category' category.id %}">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+        <div class="container">
+            <div class="row">
+
+                {% cache 20 object_list %}
+
+                    {% for product in object_list %}
+
+                        <div class="col-lg-4">
+                            <div class="item">
+                                <div class="thumb">
+                                    <div class="hover-content">
+                                        <ul>
+                                            <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
+                                            <li><a href="{% url 'app_store:basket_add' product.id %}"><i class="fa fa-shopping-cart"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <img class="mc-product-img" src="{{ product.image.url }}" alt="">
+                                </div>
+                                <div class="down-content mc-product-down-content">
+                                    <h4>{{ product.name }}</h4>
+                                    <span>{{ product.price }} rub</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+                {% endcache %}
+
+                {% if is_paginated %}
+                    <div class="col-lg-12">
+                        <div class="pagination">
+                            <ul>
+                                <li class="{% if not page_obj.has_previous %} disabled {% endif %}">
+                                    <a href="{% if page_obj.has_previous %} {% url 'app_store:paginator' page_obj.previous_page_number %} {% else %} # {% endif %}"><</a>
+                                </li>
+                                {% for page in paginator.page_range %}
+                                    <li class="{% if page == page_obj.number %} active {% endif %}">
+                                        <a href="{% url 'app_store:paginator' page %}">
+                                            {{ page }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                                <li class="{% if not page_obj.has_next %} disabled {% endif %}">
+                                    <a href="{% if page_obj.has_next %} {% url 'app_store:paginator' page_obj.next_page_number %} {% else %} # {% endif %}">></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base/base.html' %}
+{% load socialaccount %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+
+{% block main %}
+
+    <section class="mc-Registration-section">
+        <div class="container mt-3 login-container">
+
+            {% if messages or form.non_field_errors %}
+                <div class="alert alert-warning alert-dismissible fade show mc-alert-warning {% if messages %} mc-alert-warning-good {% else %} mc-alert-warning-bad {% endif %}" role="alert">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    {% else %}
+                        {{ form.non_field_errors }}
+                    {% endif %}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+
+            <form action="{% url 'app_users:login' %}" method="post">
+                {% csrf_token %}
+
+                  <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <label for="{{ form.username.id_for_label }}">Username</label>
+                        {{ form.username }}
+    {#                    <input type="text" name="username" id="username" placeholder="Enter your username." required>#}
+                      </div>
+
+                    <div class="col-sm-12 form-group">
+                      <label for="{{ form.password.id_for_label }}">Password</label>
+                        {{ form.password }}
+    {#                  <input type="Password" name="password" id="pass" placeholder="Enter your password." required>#}
+                    </div>
+
+                    <div class="col-sm-12 form-group mb-0 login-form-group-btn">
+                      <button type="submit" class="profile-btn">
+                          Submit
+                      </button>
+                    </div>
+
+                    <div class="col-sm-12 form-group" style="text-align: center; margin-top: 40px;">
+                        <a href="{% provider_login_url 'github' %}">Login with GitHub</a>
+                    </div>
+
+                  </div>
+            </form>
+          </div>
+    </section>
+
+{% endblock %}

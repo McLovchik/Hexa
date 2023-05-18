@@ -1,0 +1,98 @@
+{% load static %}
+
+    <header class="header-area header-sticky">
+
+        <div class="container mc-up_header">
+            <div class="mc-ControlPanel">
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="mc-CartBlock">
+                            <a class="mc-CartBlock-block" href="cart.html">
+                                <img class="mc-CartBlock-img" src="{% static 'assets/images/cart-trolley-ui-5-svgrepo-com.svg' %}" alt="cart.svg">
+                                <span class="mc-CartBlock-amount">
+                                    0
+                                </span>
+                            </a>
+                            <div class="mc-CartBlock-block">
+                                <span class="mc-CartBlock-price">
+                                    0.00 ₽
+                                </span>
+                            </div>
+                        </div>
+
+                        <div>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'app_users:profile' user.id %}">
+                                    PROFILE
+                                </a> /
+                                <a href="{% url 'app_users:logout' %}">
+                                    LOGOUT
+                                </a>
+                            {% else %}
+                                <a href="{% url 'app_users:login' %}">
+                                    LOGIN
+                                </a> /
+                                <a href="{% url 'app_users:registration' %}">
+                                    REGISTRATION
+                                </a>
+                            {% endif %}
+                            {% if user.is_superuser or user.is_staff %}
+                                <a href="{% url 'admin:index' %}">
+                                    / ADMIN PANEL
+                                </a>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mc-down_header">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="{% url 'app_store:index' %}" class="logo">
+                            <img src="{% static 'assets/images/logo.png' %}" alt="logo">
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a href="{% url 'app_store:index' %}" class="{% if request.path == '/' %} active{% endif %}">Home</a></li>
+                            <li class="scroll-to-section"><a href="{% url 'app_store:products' %}" class="{% if request.path == '/products/' %} active{% endif %}">Catalog</a></li>
+                            <li class="scroll-to-section"><a href="index.html">Women's</a></li>
+                            <li class="scroll-to-section"><a href="index.html">Kid's</a></li>
+                            <li class="submenu">
+                                <a href="javascript:;">Pages</a>
+                                <ul>
+                                    <li><a href="about.html">About Us</a></li>
+                                    <li><a href="products.html">Products</a></li>
+                                    <li><a href="single-product.html">Single Product</a></li>
+                                    <li><a href="contact.html">Contact Us</a></li>
+                                </ul>
+                            </li>
+                            <li class="submenu">
+                                <a href="">Features</a>
+                                <ul>
+                                    <li><a href="#">Features Page 1</a></li>
+                                    <li><a href="#">Features Page 2</a></li>
+                                    <li><a href="#">Features Page 3</a></li>
+                                </ul>
+                            </li>
+                            <li class="scroll-to-section">
+                                {% if user.is_authenticated %}
+                                    <a href="{% url 'app_orders:orders_list' %}">Orders</a>
+                                {% endif %}
+                            </li>
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>

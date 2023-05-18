@@ -1,0 +1,63 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+
+{% block main %}
+
+    <section class="mc-Registration-section">
+        <div class="container mt-3">
+            {% if form.errors %}
+                <div class="alert alert-warning alert-dismissible fade show mc-alert-warning" role="alert">
+                    {{ form.errors }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+
+            <form action="{% url 'app_users:registration' %}" method="post">
+                {% csrf_token %}
+                  <div class="row">
+                    <div class="col-sm-6 form-group">
+                      <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                      <label for="{{ form.last_name.id_for_label }}">Last name</label>
+                        {{ form.last_name }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                      <label for="{{ form.email.id_for_label }}">Email</label>
+                        {{ form.email }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="{{ form.username.id_for_label }}">Username</label>
+                        {{ form.username }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                      <label for="{{ form.password1.id_for_label }}">Password</label>
+                        {{ form.password1 }}
+                    </div>
+                    <div class="col-sm-6 form-group">
+                      <label for="{{ form.password2.id_for_label }}">Password</label>
+                        {{ form.password2 }}
+                    </div>
+
+
+                    <div class="col-sm-12 form-group mb-0 login-form-group-btn">
+                      <button type="submit" class="profile-btn">
+                          Submit
+                      </button>
+                    </div>
+
+                  </div>
+            </form>
+          </div>
+    </section>
+
+{% endblock %}
